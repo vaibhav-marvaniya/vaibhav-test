@@ -55,7 +55,7 @@ public class CardScript : MonoBehaviour
         CanClickCard = false;
         CardBtn.interactable = CanClickCard;
         Invoke(nameof(RevertCardtoBack), GameManager.instance.CardFrontTime);
-        StartCoroutine(ScaleOverSeconds(new Vector3(0, 1, 1), GameManager.instance.CardFliptime / 2, null, () =>
+        StartCoroutine(ScaleOverSeconds(new Vector3(0, 1, 1), GameManager.instance.CardFliptime / 2, ()=> { AudioManager.instance.PlayCardFlip();}, () =>
         { StartCoroutine(ScaleOverSeconds(new Vector3(1, 1, 1), GameManager.instance.CardFliptime / 2, SetFrontCard, () => { isCardFrontFlipped = true; })); }));
         GameManager.instance.OnCardClick(this);
     }
@@ -83,7 +83,7 @@ public class CardScript : MonoBehaviour
         if(shakecoroutine!=null)
             StopCoroutine(shakecoroutine);
         CardImg.transform.localPosition = StartPos;
-        StartCoroutine(ScaleOverSeconds(new Vector3(0, 1, 1), GameManager.instance.CardFliptime / 2, null, () =>
+        StartCoroutine(ScaleOverSeconds(new Vector3(0, 1, 1), GameManager.instance.CardFliptime / 2, () => { AudioManager.instance.PlayCardFlip(); }, () =>
         { StartCoroutine(ScaleOverSeconds(new Vector3(1, 1, 1), GameManager.instance.CardFliptime / 2, SetBackCard, () => { isCardFrontFlipped = false; CanClickCard = true; CardBtn.interactable = CanClickCard; })); }));
     }
 

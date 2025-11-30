@@ -86,4 +86,20 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
+    public void RemoveMatchedCard(CardScript card)
+    {
+        if(AllCardData.Contains(card))
+            AllCardData.Remove(card);
+
+        if(AllCardData.Count == 0)
+        {
+            Invoke(nameof(PlayGameoverClip), GameManager.instance.CardFliptime);
+        }
+    }
+
+    void PlayGameoverClip()
+    {
+        AudioManager.instance.PlayGameoverClip();
+    }
 }

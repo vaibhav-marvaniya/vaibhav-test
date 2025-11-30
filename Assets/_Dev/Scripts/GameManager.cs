@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public float CardFliptime, CardFrontTime;
     public List<CardScript> ClickedCards = new List<CardScript>();
 
+    public GridManager GridManager;
     public ScoreManager ScoreManager;
     public Button RestartBtn;
 
@@ -74,11 +75,14 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Matched");
         RemoveCardfromClickedCard(card1);
         RemoveCardfromClickedCard(card2);
+        GridManager.RemoveMatchedCard(card1);
+        GridManager.RemoveMatchedCard(card2);
         card1.CardMatched(card2);
         card2.CardMatched(card1);
         ScoreManager.UpdateTurns();
         ScoreManager.UpdateCombo();
-        ScoreManager.MatchScore();
+        ScoreManager.MatchScore(); 
+        AudioManager.instance.PlayMatchFlip();
     }
 
     void CardUnmatched(CardScript card1, CardScript card2)
@@ -91,6 +95,7 @@ public class GameManager : MonoBehaviour
         ScoreManager.UpdateTurns();
         ScoreManager.UpdateCombo(true);
         ScoreManager.UnmatchScrore();
+        AudioManager.instance.PlayMismatchFlip();
     }
 
     public void RemoveCardfromClickedCard(CardScript cardScript, bool isRevert = false)
