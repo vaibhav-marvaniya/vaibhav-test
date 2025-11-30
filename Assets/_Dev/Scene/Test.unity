@@ -436,6 +436,8 @@ MonoBehaviour:
   UnusedAreaVector: {x: 0, y: 0}
   RequiredCardVector: {x: 0, y: 0}
   CardOrigSpace: {x: 0, y: 0}
+  AllCardData: []
+  CardData: 
 --- !u!114 &1274111275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,5 +506,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4eeae8a47e802b4d852ed515b96ca8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RowCount: 3
-  ColCount: 3
+  RowCount: 4
+  ColCount: 6

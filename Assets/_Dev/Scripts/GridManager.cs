@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,10 @@ public class GridManager : MonoBehaviour
     public Vector2 UnusedAreaVector;
     [SerializeField]
     public Vector2 RequiredCardVector, CardOrigSpace;
+    [SerializeField]
+    List<CardScript> AllCardData = new List<CardScript>();
+    [SerializeField]
+    List<int> CardData = new List<int>();
 
     void Start()
     {
@@ -63,13 +68,21 @@ public class GridManager : MonoBehaviour
 
     void GenerateGrid()
     {
+        CardData.Clear();
+        for (int i = 0; i < RowCount * ColCount; i++)
+        {
+            CardData.Add((i / 2) + 1);
+        }
+        GameManager.Shuffle(CardData);
+        AllCardData.Clear();
         GameObject go;
         for (int i = 0; i < RowCount; i++)
         {
             for (int j = 0; j < ColCount; j++)
             {
                 go = Instantiate(CardPrefab, CardParent);
-                go.GetComponent<CardScript>().SetCardData(i, j);
+                go.GetComponent<CardScript>().SetCardData(i, j, CardData[(i * ColCount) + j]);
+                AllCardData.Add(go.GetComponent<CardScript>());
             }
         }
     }
