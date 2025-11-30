@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +5,19 @@ public class ScoreManager : MonoBehaviour
 {
     public Text ScoreText, ComboText, Turntext;
     [SerializeField]
-    int CurrentScore, MatchPoints, UnmatchPoints, ComboCount, PlayerTurnCount;
+    int CurrentScore, MatchPoints, UnmatchPoints, ComboCount, PlayerTurnCount, MatchedCardCount;
+
+    private void Start()
+    {
+        UpdateScore();
+        UpdateComboTextOnly();
+        UpdateTurnTextOnly();
+    }
 
     public void UpdateScore()
     {
-        ScoreText.text = CurrentScore.ToString();
+        if (ScoreText != null)
+            ScoreText.text = CurrentScore.ToString();
     }
 
     public void MatchScore()
@@ -32,12 +38,67 @@ public class ScoreManager : MonoBehaviour
             ComboCount = 0;
         else
             ComboCount++;
-        ComboText.text = ComboCount.ToString() + "x";
+
+        UpdateComboTextOnly();
     }
 
     public void UpdateTurns()
     {
         PlayerTurnCount++;
-        Turntext.text = PlayerTurnCount.ToString();
+        UpdateTurnTextOnly();
+    }
+
+    public void UpdateMatchedCardCount()
+    {
+        MatchedCardCount += 2;
+    }
+
+    public int ReturnCurrentScore()
+    {
+        return CurrentScore;
+    }
+
+    public int ReturnComboCount()
+    {
+        return ComboCount;
+    }
+
+    public int ReturnTurnCount()
+    {
+        return PlayerTurnCount;
+    }
+
+    public int ReturnMatchedCardount()
+    {
+        return MatchedCardCount;
+    }
+
+    public void ApplyLoadedValues(
+        int savedScore,
+        int savedCombo,
+        int savedTurnCount,
+        int savedMatchedCardCount
+    )
+    {
+        CurrentScore = savedScore;
+        ComboCount = savedCombo;
+        PlayerTurnCount = savedTurnCount;
+        MatchedCardCount = savedMatchedCardCount;
+
+        UpdateScore();
+        UpdateComboTextOnly();
+        UpdateTurnTextOnly();
+    }
+
+    void UpdateComboTextOnly()
+    {
+        if (ComboText != null)
+            ComboText.text = ComboCount.ToString() + "x";
+    }
+
+    void UpdateTurnTextOnly()
+    {
+        if (Turntext != null)
+            Turntext.text = PlayerTurnCount.ToString();
     }
 }

@@ -183,6 +183,51 @@ MonoBehaviour:
   UnmatchPoints: 20
   ComboCount: 0
   PlayerTurnCount: 0
+  MatchedCardCount: 0
+--- !u!1 &11881183
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 11881184}
+  - component: {fileID: 11881185}
+  m_Layer: 0
+  m_Name: SaveLoadManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &11881184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11881183}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11881185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11881183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f34da6f4009f84faf8d0fe391d4d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &48914601
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,8 +323,9 @@ RectTransform:
   m_Children:
   - {fileID: 1274111273}
   - {fileID: 7040085}
+  - {fileID: 1417112802}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -352,7 +398,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &445034415
 GameObject:
@@ -368,6 +414,7 @@ GameObject:
   - component: {fileID: 445034421}
   - component: {fileID: 445034420}
   - component: {fileID: 445034419}
+  - component: {fileID: 445034422}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -388,7 +435,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &445034417
 MonoBehaviour:
@@ -402,14 +449,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba9256d0c0f0724fb5d9ce16e595326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cardflipaudiosource: {fileID: 445034418}
-  Matchaudiosource: {fileID: 445034421}
-  Mismatchaudiosource: {fileID: 445034420}
-  Fameoveraudiosource: {fileID: 445034419}
+  CardFlipAudioSource: {fileID: 445034418}
+  MatchAudioSource: {fileID: 445034421}
+  MismatchAudioSource: {fileID: 445034420}
+  GameOverAudioSource: {fileID: 445034419}
   CardFlipClip: {fileID: 8300000, guid: 2f64ca2054b564242a529993ecd382fa, type: 3}
   MatchClip: {fileID: 8300000, guid: e0cb5671916487f42ab1559058abc548, type: 3}
   MismatchClip: {fileID: 8300000, guid: 89dfeb241fda7f748958b8e605f77ef6, type: 3}
-  GameoverClip: {fileID: 8300000, guid: 2e965977b3558644eaf93eb5de59cf80, type: 3}
+  GameOverClip: {fileID: 8300000, guid: 2e965977b3558644eaf93eb5de59cf80, type: 3}
 --- !u!82 &445034418
 AudioSource:
   m_ObjectHideFlags: 0
@@ -794,6 +841,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &445034422
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445034415}
+  m_Enabled: 1
 --- !u!1 &466782147
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,7 +1019,6 @@ GameObject:
   m_Component:
   - component: {fileID: 615463982}
   - component: {fileID: 615463981}
-  - component: {fileID: 615463980}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -972,14 +1026,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &615463980
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615463979}
-  m_Enabled: 1
 --- !u!20 &615463981
 Camera:
   m_ObjectHideFlags: 0
@@ -1036,7 +1082,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1062646226
 GameObject:
@@ -1330,7 +1376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c72e1f8c181af4c893c236cf02893e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameplayCanvas: {fileID: 48914605}
   RowCount: 0
   ColCount: 0
   CardPrefab: {fileID: 8357017337958437476, guid: 90d694b9c243c1540a5e121b358eb9cf, type: 3}
@@ -1366,6 +1411,86 @@ MonoBehaviour:
   m_Spacing: {x: 50, y: 50}
   m_Constraint: 1
   m_ConstraintCount: 4
+--- !u!1 &1417112801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1417112802}
+  - component: {fileID: 1417112804}
+  - component: {fileID: 1417112803}
+  m_Layer: 5
+  m_Name: WarningText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1417112802
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417112801}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 48914605}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 125, y: 0}
+  m_SizeDelta: {x: -350, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1417112803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417112801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 125
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &1417112804
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417112801}
+  m_CullTransparentMesh: 1
 --- !u!1 &1649100863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,14 +1657,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4eeae8a47e802b4d852ed515b96ca8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RowCount: 4
-  ColCount: 6
+  RowCount: 3
+  ColCount: 4
   CardFliptime: 0.2
   CardFrontTime: 2
   ClickedCards: []
   GridManager: {fileID: 1274111274}
   ScoreManager: {fileID: 7040086}
+  SaveLoadManager: {fileID: 11881185}
   RestartBtn: {fileID: 1649100865}
+  WarningTxt: {fileID: 1417112803}
 --- !u!1 &1943071017
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,11 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioSource Cardflipaudiosource, Matchaudiosource, Mismatchaudiosource, Fameoveraudiosource;
-    public AudioClip CardFlipClip, MatchClip, MismatchClip, GameoverClip;
+    public AudioSource CardFlipAudioSource;
+    public AudioSource MatchAudioSource;
+    public AudioSource MismatchAudioSource;
+    public AudioSource GameOverAudioSource;
+
+    public AudioClip CardFlipClip;
+    public AudioClip MatchClip;
+    public AudioClip MismatchClip;
+    public AudioClip GameOverClip;
+
     public static AudioManager instance
     {
         get
@@ -36,20 +42,33 @@ public class AudioManager : MonoBehaviour
 
     public void PlayCardFlip()
     {
-        Cardflipaudiosource.PlayOneShot(CardFlipClip);
+        if (CardFlipAudioSource != null && CardFlipClip != null)
+        {
+            CardFlipAudioSource.PlayOneShot(CardFlipClip);
+        }
     }
 
     public void PlayMatchFlip()
     {
-        Matchaudiosource.PlayOneShot(MatchClip);
+        if (MatchAudioSource != null && MatchClip != null)
+        {
+            MatchAudioSource.PlayOneShot(MatchClip);
+        }
     }
 
     public void PlayMismatchFlip()
     {
-        Mismatchaudiosource.PlayOneShot(MismatchClip);
+        if (MismatchAudioSource != null && MismatchClip != null)
+        {
+            MismatchAudioSource.PlayOneShot(MismatchClip);
+        }
     }
+
     public void PlayGameoverClip()
     {
-        Fameoveraudiosource.PlayOneShot(GameoverClip);
+        if (GameOverAudioSource != null && GameOverClip != null)
+        {
+            GameOverAudioSource.PlayOneShot(GameOverClip);
+        }
     }
 }

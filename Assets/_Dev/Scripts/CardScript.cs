@@ -15,6 +15,7 @@ public class CardScript : MonoBehaviour
     public bool isCardFrontFlipped = false;
     [SerializeField]
     bool CanClickCard = true;
+    public bool isCardMatched = false;
 
     public Sprite BackSprite, FrontSprite;
     public Text CardDataText;
@@ -49,7 +50,6 @@ public class CardScript : MonoBehaviour
 
     void OnCardClick()
     {
-        //Debug.Log("OnCardClick "+ CanClickCard);
         if (!CanClickCard)
             return;
         CanClickCard = false;
@@ -62,7 +62,6 @@ public class CardScript : MonoBehaviour
 
     void SetFrontCard()
     {
-        //Debug.Log("SetFrontCard");
         CurrentCardState = CardState.front;
         CardImg.sprite = FrontSprite;
         CardDataText.text = CardDataNum.ToString();
@@ -70,7 +69,6 @@ public class CardScript : MonoBehaviour
 
     void SetBackCard()
     {
-        //Debug.Log("SetBackCard");
         CurrentCardState = CardState.back;
         CardImg.sprite = BackSprite;
         CardDataText.text = "";
@@ -78,7 +76,6 @@ public class CardScript : MonoBehaviour
 
     void RevertCardtoBack()
     {
-        //Debug.Log("RevertCard");
         GameManager.instance.RemoveCardfromClickedCard(this, true);
         if(shakecoroutine!=null)
             StopCoroutine(shakecoroutine);
@@ -89,6 +86,7 @@ public class CardScript : MonoBehaviour
 
     public void CardMatched(CardScript secondcard)
     {
+        isCardMatched = true;
         CancelInvoke(nameof(RevertCardtoBack));
         StartCoroutine(MatchAnimation(secondcard, 0.3f, Vector2.one * 1.2f, null));
     }
@@ -101,7 +99,6 @@ public class CardScript : MonoBehaviour
 
     public IEnumerator ScaleOverSeconds(Vector3 end, float seconds, System.Action preaction, System.Action postaction)
     {
-        //Debug.Log("ScaleOverSeconds");
         preaction?.Invoke();
         float elapsedTime = 0;
         Vector3 start = transform.localScale;
@@ -185,6 +182,32 @@ public class CardScript : MonoBehaviour
         CardImg.transform.localPosition = StartPos;
         Invoke(nameof(RevertCardtoBack), 1f);
     }
+
+    public void ApplyLoadedMatchedState()
+    {
+        isCardMatched = true;
+        isCardFrontFlipped = false;
+
+        CanClickCard = false;
+
+        if (CardBtn != null)
+            CardBtn.interactable = false;
+
+        if (CardImg != null)
+        {
+            Color imgColor = CardImg.color;
+            imgColor.a = 0f;
+            CardImg.color = imgColor;
+        }
+
+        if (CardDataText != null)
+        {
+            Color textColor = CardDataText.color;
+            textColor.a = 0f;
+            CardDataText.color = textColor;
+        }
+    }
+
 }
 
 public enum CardState : int
