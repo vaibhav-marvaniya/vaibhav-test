@@ -8,9 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public int RowCount, ColCount;
     public float CardFliptime, CardFrontTime;
-    [SerializeField]
-    int PlayerTurns;
     public List<CardScript> ClickedCards = new List<CardScript>();
+
+    public ScoreManager ScoreManager;
+    public Button RestartBtn;
 
     public static GameManager instance
     {
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
 
         _instance = this;
         ClickedCards.Clear();
+        RestartBtn.onClick.AddListener(() => UnityEngine.SceneManagement.SceneManager.LoadScene(0));
     }
 
     public void OnCardClick(CardScript cardScript)
@@ -46,17 +48,16 @@ public class GameManager : MonoBehaviour
         ClickedCards.Add(cardScript);
         if(ClickedCards.Count % 2 == 0)
         {
-            PlayerTurns++;
             CheckforPairMatch();
         }    
     }
 
     void CheckforPairMatch()
     {
-        Debug.Log("CheckforPairMatch");
+        //Debug.Log("CheckforPairMatch");
         for (int i = 0; i < ClickedCards.Count / 2; i++)
         {
-            Debug.Log(ClickedCards[(i * 2)].CardDataNum + " "+ ClickedCards[(i * 2) + 1].CardDataNum);
+            //Debug.Log(ClickedCards[(i * 2)].CardDataNum + " "+ ClickedCards[(i * 2) + 1].CardDataNum);
             if (ClickedCards[(i * 2)].CardDataNum == ClickedCards[(i * 2) + 1].CardDataNum)
             {
                 CardMatched(ClickedCards[(i * 2)], ClickedCards[(i * 2) + 1]);
@@ -70,26 +71,43 @@ public class GameManager : MonoBehaviour
 
     void CardMatched(CardScript card1, CardScript card2)
     {
-        Debug.Log("Matched");
+        //Debug.Log("Matched");
         RemoveCardfromClickedCard(card1);
         RemoveCardfromClickedCard(card2);
         card1.CardMatched(card2);
         card2.CardMatched(card1);
+        ScoreManager.UpdateTurns();
+        ScoreManager.UpdateCombo();
+        ScoreManager.MatchScore();
     }
 
     void CardUnmatched(CardScript card1, CardScript card2)
     {
-        Debug.Log("Unmatched");
+        //Debug.Log("Unmatched");
         RemoveCardfromClickedCard(card1);
         RemoveCardfromClickedCard(card2);
         card1.CardUnmatched(card2);
         card2.CardUnmatched(card1);
+        ScoreManager.UpdateTurns();
+        ScoreManager.UpdateCombo(true);
+        ScoreManager.UnmatchScrore();
     }
 
-    public void RemoveCardfromClickedCard(CardScript cardScript)
+    public void RemoveCardfromClickedCard(CardScript cardScript, bool isRevert = false)
     {
-        if(ClickedCards.Contains(cardScript))
+        if (isRevert)
+        {
+            if (ClickedCards.Count == 1)
+            {
+                if (ClickedCards[0].CardDataNum == cardScript.CardDataNum)
+                {
+                    ScoreManager.UpdateTurns();
+                }
+            }
+        }
+        if (ClickedCards.Contains(cardScript))
             ClickedCards.Remove(cardScript);
+
     }
 
     public static void Shuffle<T>(IList<T> list)

@@ -49,7 +49,7 @@ public class CardScript : MonoBehaviour
 
     void OnCardClick()
     {
-        Debug.Log("OnCardClick "+ CanClickCard);
+        //Debug.Log("OnCardClick "+ CanClickCard);
         if (!CanClickCard)
             return;
         CanClickCard = false;
@@ -62,7 +62,7 @@ public class CardScript : MonoBehaviour
 
     void SetFrontCard()
     {
-        Debug.Log("SetFrontCard");
+        //Debug.Log("SetFrontCard");
         CurrentCardState = CardState.front;
         CardImg.sprite = FrontSprite;
         CardDataText.text = CardDataNum.ToString();
@@ -70,7 +70,7 @@ public class CardScript : MonoBehaviour
 
     void SetBackCard()
     {
-        Debug.Log("SetBackCard");
+        //Debug.Log("SetBackCard");
         CurrentCardState = CardState.back;
         CardImg.sprite = BackSprite;
         CardDataText.text = "";
@@ -78,8 +78,8 @@ public class CardScript : MonoBehaviour
 
     void RevertCardtoBack()
     {
-        Debug.Log("RevertCard");
-        GameManager.instance.RemoveCardfromClickedCard(this);
+        //Debug.Log("RevertCard");
+        GameManager.instance.RemoveCardfromClickedCard(this, true);
         if(shakecoroutine!=null)
             StopCoroutine(shakecoroutine);
         CardImg.transform.localPosition = StartPos;
@@ -101,7 +101,7 @@ public class CardScript : MonoBehaviour
 
     public IEnumerator ScaleOverSeconds(Vector3 end, float seconds, System.Action preaction, System.Action postaction)
     {
-        Debug.Log("ScaleOverSeconds");
+        //Debug.Log("ScaleOverSeconds");
         preaction?.Invoke();
         float elapsedTime = 0;
         Vector3 start = transform.localScale;
