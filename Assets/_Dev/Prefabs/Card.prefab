@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -173,10 +173,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardX: 0
   CardY: 0
-  CardRect: {fileID: 2193759417148724567}
-  CardBtn: {fileID: 2862247080949743819}
   CardDataNum: 0
+  CurrentCardState: 0
+  BackSprite: {fileID: 1651967998, guid: 5797c0e154aa12044af28775ab6a133e, type: 3}
+  FrontSprite: {fileID: 1485567261, guid: 5797c0e154aa12044af28775ab6a133e, type: 3}
   CardDataText: {fileID: 2940288610653606730}
+  CardImg: {fileID: 8304848952852937607}
+  CardBtn: {fileID: 2862247080949743819}
 --- !u!114 &2862247080949743819
 MonoBehaviour:
   m_ObjectHideFlags: 0

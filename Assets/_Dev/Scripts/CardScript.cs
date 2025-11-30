@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CardScript : MonoBehaviour
 {
     public int CardX, CardY;
-    public RectTransform CardRect;
-    public Button CardBtn;
     public int CardDataNum;
+    public CardState CurrentCardState;
+
+    public Sprite BackSprite, FrontSprite;
     public Text CardDataText;
+    public Image CardImg;
+    public Button CardBtn;
 
     private void Awake()
     {
@@ -20,11 +24,42 @@ public class CardScript : MonoBehaviour
     {
         CardX = x;
         CardY = y;
-        CardDataText.text = num.ToString(); 
+        CardDataNum = num;
+        CardDataText.text = "";
+        CurrentCardState = CardState.back;
+        CardImg.sprite = BackSprite;
     }
 
     void OnCardClick()
     {
+        Debug.Log("OnCardClick " + gameObject.name);
+        Invoke(nameof(RevertCardtoBack), GameManager.instance.CardFrontTime);
+        CurrentCardState = CardState.front;
+        CardImg.sprite = FrontSprite;
+        CardDataText.text = CardDataNum.ToString();
+        GameManager.instance.OnCardClick(this);
+    }
+
+    void RevertCardtoBack()
+    {
+        GameManager.instance.RemoveCardfromClickedCard(this);
+        CurrentCardState = CardState.back;
+        CardImg.sprite = BackSprite;
+        CardDataText.text = "";
+    }
+
+    public void CardMatched()
+    {
 
     }
+
+    public void CardUnmatched()
+    {
+        RevertCardtoBack();
+    }
+}
+
+public enum CardState : int
+{
+    back = 0, front = 1
 }

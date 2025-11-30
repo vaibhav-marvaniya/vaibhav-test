@@ -508,3 +508,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RowCount: 4
   ColCount: 6
+  CardFrontTime: 3
+  ClickedCards: []
