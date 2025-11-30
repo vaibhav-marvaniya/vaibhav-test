@@ -386,6 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1274111273}
   - component: {fileID: 1274111274}
+  - component: {fileID: 1274111275}
   m_Layer: 5
   m_Name: CardArea
   m_TagString: Untagged
@@ -425,6 +426,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c72e1f8c181af4c893c236cf02893e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameplayCanvas: {fileID: 48914605}
+  RowCount: 0
+  ColCount: 0
+  CardPrefab: {fileID: 8357017337958437476, guid: 90d694b9c243c1540a5e121b358eb9cf, type: 3}
+  CardParent: {fileID: 1274111273}
+  CardGrid: {fileID: 1274111275}
+  CardOrigVector: {x: 0, y: 0}
+  UnusedAreaVector: {x: 0, y: 0}
+  RequiredCardVector: {x: 0, y: 0}
+  CardOrigSpace: {x: 0, y: 0}
+--- !u!114 &1274111275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274111272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 10
+    m_Right: 10
+    m_Top: 10
+    m_Bottom: 10
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 245, y: 323}
+  m_Spacing: {x: 50, y: 50}
+  m_Constraint: 1
+  m_ConstraintCount: 4
 --- !u!1 &1683862957
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,3 +504,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4eeae8a47e802b4d852ed515b96ca8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RowCount: 3
+  ColCount: 3
