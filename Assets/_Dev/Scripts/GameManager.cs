@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public int RowCount, ColCount;
-    public int CardFrontTime;
+    public float CardFliptime, CardFrontTime;
+    [SerializeField]
+    int PlayerTurns;
     public List<CardScript> ClickedCards = new List<CardScript>();
 
     public static GameManager instance
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
         ClickedCards.Add(cardScript);
         if(ClickedCards.Count % 2 == 0)
         {
+            PlayerTurns++;
             CheckforPairMatch();
         }    
     }
@@ -70,8 +73,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Matched");
         RemoveCardfromClickedCard(card1);
         RemoveCardfromClickedCard(card2);
-        card1.CardMatched();
-        card2.CardMatched();
+        card1.CardMatched(card2);
+        card2.CardMatched(card1);
     }
 
     void CardUnmatched(CardScript card1, CardScript card2)
@@ -79,8 +82,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Unmatched");
         RemoveCardfromClickedCard(card1);
         RemoveCardfromClickedCard(card2);
-        card1.CardUnmatched();
-        card2.CardUnmatched();
+        card1.CardUnmatched(card2);
+        card2.CardUnmatched(card1);
     }
 
     public void RemoveCardfromClickedCard(CardScript cardScript)
